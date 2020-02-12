@@ -1,83 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { increment, decrement } from '../actions'
 
-//componentを作った
-const User = ( props ) => {
-  return (
-    <div>
-      名前は { props.name } 年齢は{ props.age }</div>
-  )
-}
-
-class Counter extends Component {
-  constructor( props ) {
-    super( props )
-    this.state = {
-      count: 0
-    }
-  }
-
-  handolePlusButton = () => {
-    this.setState( {
-      count: this.state.count + 1
-    }
-    )
-  }
-  handoleMinusButton = () => {
-    this.setState( {
-      count: this.state.count - 1
-    }
-    )
-  }
+class App extends Component {
   render () {
-    console.log()
+    // 状態やactionをconst propsに入れておく。
+    // Providerから渡されたstoreの値が入っている
+    const props = this.props
+    console.log( props )
     return (
       <div>
-        Counter { this.state.count } <br />
-        <button onClick={ this.handolePlusButton }>+1</button>
-        <button onClick={ this.handoleMinusButton }>-1</button>
+        Value { props.value } <br />
+        <button onClick={ props.increment }>+31</button>
+        <button onClick={ props.decrement }>-1</button>
       </div>
     )
   }
 }
 
-const App = () => {
+//storeから必要なstateを取り出す
+const mapStateToProps = state => ( { value: state.count.value } )
+// const mapDispatchToProps = dispatch => ( {
+//   increment: () => dispatch( increment() ),
+//   decrement: () => dispatch( decrement() ),
+// } )
 
-  let i = 0;
-  let v = 0;
+const mapDispatchToProps = ( { increment, decrement } )
 
-  const profiles = [
-    { name: 'TARO', age: 10 },
-    { name: 'HANALP', age: 9 },
-    { name: 'TOYOTA', age: 3243 },
-    { name: 'NoName' },
-  ]
-
-  return (
-    <React.Fragment>
-      {
-        //親から子にpropsで値を渡す
-        //propsの名前はキャメルケースを使う name-joinはだめ
-        profiles.map( ( profile, index ) => {
-          return <User name={ profile.name } age={ profile.age } key={ index } />
-        } )
-      }
-
-      <label htmlFor="text_area">文字を入力</label>
-      <input id="text_area" type="text" onChange={ () => console.log( i++ ) } /> <br />
-      <button onClick={ () => console.log( v++ ) } >console.logが増える</button>
-
-
-      <Counter />
-
-
-    </React.Fragment >
-  )
-}
-
-// User.propTypes = {
-//   name: PropTypes.string,
-//   age: PropTypes.number.isRequired
-// }
-
-
-export default App;
+export default connect( mapStateToProps, mapDispatchToProps )( App )
