@@ -30,7 +30,6 @@ const App = () => {
     { name: 'NoName' },
   ]
 
-
   return (
     <React.Fragment>
       {
