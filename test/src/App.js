@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 // class App extends Component {
 //   render () {
@@ -14,7 +15,7 @@ import React from 'react';
 const User = ( props ) => {
   return (
     <div>
-      名前は { props.nameJoin } 年齢は{ props.age }</div>
+      名前は { props.name } 年齢は{ props.age }</div>
   )
 }
 
@@ -25,8 +26,8 @@ const App = () => {
 
   const profiles = [
     { name: 'TARO', age: 10 },
-    { name: 'HANAKO', age: 9 },
-    { name: 'TOYOTA', age: 39 },
+    { name: 'HANALP', age: 9 },
+    { name: 'TOYOTA', age: 3243 },
     { name: 'NoName' },
   ]
 
@@ -36,7 +37,7 @@ const App = () => {
         //親から子にpropsで値を渡す
         //propsの名前はキャメルケースを使う name-joinはだめ
         profiles.map( ( profile, index ) => {
-          return <User nameJoin={ profile.name } age={ profile.age } key={ index } />
+          return <User name={ profile.name } age={ profile.age } key={ index } />
         } )
       }
 
@@ -47,9 +48,9 @@ const App = () => {
   )
 }
 
-
-User.defaultProps = {
-  age: 1
+User.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number.isRequired
 }
 
 
