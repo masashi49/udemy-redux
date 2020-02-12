@@ -1,15 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types'
-
-// class App extends Component {
-//   render () {
-//     return (
-//       <h1 className="App">
-//         hello testasfasdf
-//     </h1>
-//     )
-//   };
-// }
+import React, { Component } from 'react';
 
 //componentを作った
 const User = ( props ) => {
@@ -17,6 +6,38 @@ const User = ( props ) => {
     <div>
       名前は { props.name } 年齢は{ props.age }</div>
   )
+}
+
+class Counter extends Component {
+  constructor( props ) {
+    super( props )
+    this.state = {
+      count: 0
+    }
+  }
+
+  handolePlusButton = () => {
+    this.setState( {
+      count: this.state.count + 1
+    }
+    )
+  }
+  handoleMinusButton = () => {
+    this.setState( {
+      count: this.state.count - 1
+    }
+    )
+  }
+  render () {
+    console.log()
+    return (
+      <div>
+        Counter { this.state.count } <br />
+        <button onClick={ this.handolePlusButton }>+1</button>
+        <button onClick={ this.handoleMinusButton }>-1</button>
+      </div>
+    )
+  }
 }
 
 const App = () => {
@@ -44,14 +65,19 @@ const App = () => {
       <label htmlFor="text_area">文字を入力</label>
       <input id="text_area" type="text" onChange={ () => console.log( i++ ) } /> <br />
       <button onClick={ () => console.log( v++ ) } >console.logが増える</button>
+
+
+      <Counter />
+
+
     </React.Fragment >
   )
 }
 
-User.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number.isRequired
-}
+// User.propTypes = {
+//   name: PropTypes.string,
+//   age: PropTypes.number.isRequired
+// }
 
 
 export default App;
