@@ -1,9 +1,9 @@
 // アプリケーション内に存在するreducersを結合する
 
-import { CombineReducers } from 'redux'
+import { combineReducers } from 'redux'
 import count from "./count"
 
-export default CombineReducers( {
+export default combineReducers( {
     count,
     // foo,bar,buz
 } )
