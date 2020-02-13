@@ -14,14 +14,13 @@ export const decrement = () => ( {
     type: DECREMENT
 } )
 
-
 const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1'
 const QUERYSTRING = '?token=token123'
 
 // リクエストを投げる時、promiseが帰るのでasyncで処理を待つってからdispatchへ渡す
+//actionで関数を返すために、redux-thunkが必要となるので、createStore時に渡しておく必要がある。
 export const readEvents = () => async dispatch => {
     const response = await axios.get( `${ ROOT_URL }/events${ QUERYSTRING }` )
-    console.log( response )
     dispatch( { type: READ_EVENTS, response } )
 }
 
