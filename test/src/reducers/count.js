@@ -1,4 +1,4 @@
-import { increment, decrement } from '../actions'
+import { INCREMENT, DECREMENT, READ_EVENTS } from '../actions'
 
 //初期状態のstateを設定
 const initialState = {
@@ -11,11 +11,12 @@ const initialState = {
 // actionのタイプによって処理を分岐させて返す
 export default ( state = initialState, action ) => {
     switch ( action.type ) {
-        case 'INCREMENT':
+        case INCREMENT:
             return { value: state.value + 1 }
-
-        case 'DECREMENT':
+        case DECREMENT:
             return { value: state.value - 1 }
+        case READ_EVENTS:
+            return state
         default:
             return state
     }

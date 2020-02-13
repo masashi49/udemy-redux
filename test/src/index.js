@@ -1,23 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux'; //applyMiddleware ミドルウェアを使えるようにする
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 import './index.css';
 
-import App from './components/App';
+import EventsIndex from './components/events_index';
 import * as serviceWorker from './serviceWorker';
 import reducers from './reducers';
 
 
 //アプリ内で唯一のstore 全ての状態がここに集約する
-const store = createStore( reducers )
+const store = createStore( reducers, applyMiddleware(thunk) )
 
 console.log( store )
 //どのコンポーネントでも参照できるようにするのがProvider
 
 ReactDOM.render(
     <Provider store={ store }>
-        <App />
+        <EventsIndex />
     </Provider>
     , document.getElementById( 'root' ) );
 

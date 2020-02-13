@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { increment, decrement } from '../actions'
+import { increment, decrement, readEvents } from '../actions'
 
-class App extends Component {
+class EventsIndex extends Component {
+
+  componentDidMount () {
+    console.log( 12324 )
+    this.props.readEvents();
+  }
+
   render () {
     // 状態やactionをconst propsに入れておく。
     // Providerから渡されたstoreの値が入っている
@@ -20,11 +26,8 @@ class App extends Component {
 
 //storeから必要なstateを取り出す
 const mapStateToProps = state => ( { value: state.count.value } )
-// const mapDispatchToProps = dispatch => ( {
-//   increment: () => dispatch( increment() ),
-//   decrement: () => dispatch( decrement() ),
-// } )
 
-const mapDispatchToProps = ( { increment, decrement } )
 
-export default connect( mapStateToProps, mapDispatchToProps )( App )
+const mapDispatchToProps = ( { increment, decrement, readEvents } )
+
+export default connect( mapStateToProps, mapDispatchToProps )( EventsIndex )
