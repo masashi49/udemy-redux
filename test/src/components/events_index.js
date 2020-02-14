@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { increment, decrement, readEvents } from '../actions'
 import _ from 'lodash'
+import { Link } from 'react-router-dom'
 
 class EventsIndex extends Component {
 
@@ -23,7 +24,7 @@ class EventsIndex extends Component {
     // Providerから渡されたstoreの値が入っている
     const props = this.props
     return (
-      <div>
+      <React.Fragment>
 
         <table>
           <thead>
@@ -38,10 +39,13 @@ class EventsIndex extends Component {
           </tbody>
         </table>
 
+
         Value { console.log( props.value ) } <br />
         <button onClick={ props.increment }>+31</button>
         <button onClick={ props.decrement }>-1</button>
-      </div>
+
+        <Link to='events/new'>New Event</Link>
+      </React.Fragment>
     )
   }
 }
