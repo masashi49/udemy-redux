@@ -10,10 +10,16 @@ import EventsIndex from './components/events_index';
 import EventsNew from './components/events_new';
 import * as serviceWorker from './serviceWorker';
 import reducers from './reducers';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 
 //アプリ内で唯一のstore 全ての状態がここに集約する
-const store = createStore( reducers, applyMiddleware( thunk ) )
+
+const enhancer = process.env.NODE_ENV === 'development' ?
+    composeWithDevTools( applyMiddleware( thunk ) ) : applyMiddleware( thunk )
+
+
+const store = createStore( reducers, enhancer )
 
 //どのコンポーネントでも参照できるようにするのがProvider
 
