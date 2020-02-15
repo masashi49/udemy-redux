@@ -15,7 +15,6 @@ import reducers from './reducers';
 //アプリ内で唯一のstore 全ての状態がここに集約する
 const store = createStore( reducers, applyMiddleware( thunk ) )
 
-console.log( store )
 //どのコンポーネントでも参照できるようにするのがProvider
 
 ReactDOM.render(

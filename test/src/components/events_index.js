@@ -39,8 +39,6 @@ class EventsIndex extends Component {
           </tbody>
         </table>
 
-
-        Value { console.log( props.value ) } <br />
         <button onClick={ props.increment }>+31</button>
         <button onClick={ props.decrement }>-1</button>
 

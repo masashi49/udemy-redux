@@ -8,7 +8,10 @@ class EventsNew extends Component {
 
     constructor( props ) {
         super( props )
-        this.onSubmit = this.onSubmit.bind( this )
+        this.onSubmit = this.onSubmit.bind( this ) // 関数でthisにアクセスするための決まり文句
+        //Object.getOwnPropertyNames( this.__proto__ ).forEach( func =>
+        //  this[ func ] = this[ func ].bind( this )
+        // )
     }
 
     renderField ( field ) {
@@ -17,24 +20,32 @@ class EventsNew extends Component {
             <div>
                 <input { ...input } placeholder={ label } type={ type } />
                 { touched && error && <span>{ error }</span> }
-            </div> )
+            </div>
+        )
     }
 
+    //各フィールド値が入ったオブジェクトをredux-formが渡してくれます
     async onSubmit ( values ) {
         await this.props.postEvent( values )
-        this.props.history.push( '/' )
+        this.props.history.push( '/' ) // historyに現在のページのURLを追加しつつページ繊維
     }
 
     render () {
-        const { handleSubmit } = this.props
-        return (
+        //redux-formから提供されているpristine フォーム内のフィールドがまだ変更されていない
+        //redux-formから提供されているsubmitting 1つのイベントしか作成されない(連打できない)
 
+        const { handleSubmit, pristine, submitting } = this.props
+
+        // handoleSubmitはreduxForm を component と紐付けることで実装されるハンドラ 
+        return (
             <form onSubmit={ handleSubmit( this.onSubmit ) }>
                 <div>
                     <Field label="Title" name="title" type="text" component={ this.renderField } />
                     <Field label="Body" name="body" type="text" component={ this.renderField } />
+                    <Field label="HEAD" name="HEAD" type="text" component={ this.renderField } />
+                    <Field label="NEIC" name="neic" type="text" component={ this.renderField } />
                 </div>
-                <input type="submit" value="Submit" disabled={ false } />
+                <input type="submit" value="Submit" disabled={ pristine || submitting } />
                 <Link to='/'>Cancel</Link>
             </form>
         )
