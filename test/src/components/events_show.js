@@ -10,6 +10,7 @@ class EventsShow extends Component {
         console.log( 213435 )
         super( props )
         this.onSubmit = this.onSubmit.bind( this ) // 関数でthisにアクセスするための決まり文句
+        this.onDeleteClick = this.onDeleteClick.bind( this ) // 関数でthisにアクセスするための決まり文句
         //Object.getOwnPropertyNames( this.__proto__ ).forEach( func =>
         //  this[ func ] = this[ func ].bind( this )
         // )
@@ -26,7 +27,15 @@ class EventsShow extends Component {
     }
 
     async onSubmit ( values ) {
+        await this.props.postEvent( values )
         this.props.history.push( '/' ) // historyに現在のページのURLを追加しつつページ繊維
+    }
+
+    async onDeleteClick () {
+        console.log( this.props.match ) // :id　の部分に必要なパラメータを取得できる
+        const { id } = this.props.match.params
+        await this.props.deleteEvent( id )
+        //this.props.history.push( '/' ) // historyに現在のページのURLを追加しつつページ繊維
     }
 
     render () {
@@ -41,6 +50,7 @@ class EventsShow extends Component {
                 </div>
                 <input type="submit" value="Submit" disabled={ pristine || submitting } />
                 <Link to='/'>Cancel</Link>
+                <Link to='/' onClick={ this.onDeleteClick }>DELETE</Link>
             </form>
         )
     }
@@ -56,8 +66,8 @@ const validate = values => {
     return errors
 }
 
-// const mapDispatchToProps = ( { postEvent } )
+const mapDispatchToProps = ( { deleteEvent } )
 
-export default connect( null, null )(
+export default connect( null, mapDispatchToProps )(
     reduxForm( { validate, form: 'eventShowForm' } )( EventsShow )
 )
