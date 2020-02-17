@@ -9,11 +9,13 @@ class EventsShow extends Component {
     constructor( props ) {
         console.log( 213435 )
         super( props )
-        this.onSubmit = this.onSubmit.bind( this ) // 関数でthisにアクセスするための決まり文句
-        this.onDeleteClick = this.onDeleteClick.bind( this ) // 関数でthisにアクセスするための決まり文句
-        //Object.getOwnPropertyNames( this.__proto__ ).forEach( func =>
-        //  this[ func ] = this[ func ].bind( this )
-        // )
+        this.onSubmit = this.onSubmit.bind( this )
+        this.onDeleteClick = this.onDeleteClick.bind( this )
+    }
+
+    componentDidMount () {
+        const { id } = this.props.match.params
+        if ( id ) this.props.getEvent(id);
     }
 
     renderField ( field ) {
@@ -32,8 +34,7 @@ class EventsShow extends Component {
     }
 
     async onDeleteClick () {
-        console.log( this.props.match ) // :id　の部分に必要なパラメータを取得できる
-        const { id } = this.props.match.params
+        const { id } = this.props.match.params // :id　の部分に必要なパラメータを取得できる
         await this.props.deleteEvent( id )
         //this.props.history.push( '/' ) // historyに現在のページのURLを追加しつつページ繊維
     }
@@ -66,8 +67,19 @@ const validate = values => {
     return errors
 }
 
-const mapDispatchToProps = ( { deleteEvent } )
+//ownPropsは現在のprops
+const mapStageToProps = ( state, ownProps ) => {
+    console.log( state )
+    const event = state.count[ ownProps.match.params.id ]
+    return { initialValues: event, event }
+}
 
-export default connect( null, mapDispatchToProps )(
-    reduxForm( { validate, form: 'eventShowForm' } )( EventsShow )
+const mapDispatchToProps = ( { deleteEvent, getEvent } )
+
+export default connect( mapStageToProps, mapDispatchToProps )(
+    // enableReinitialize: true formの値が変わったらレンダリングする
+    reduxForm( {
+        validate, form: 'eventShowForm',
+        enableReinitialize: true
+    } )( EventsShow )
 )
