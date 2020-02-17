@@ -15,7 +15,7 @@ class EventsShow extends Component {
 
     componentDidMount () {
         const { id } = this.props.match.params
-        if ( id ) this.props.getEvent(id);
+        if ( id ) this.props.getEvent( id );
     }
 
     renderField ( field ) {
@@ -70,8 +70,8 @@ const validate = values => {
 //ownPropsは現在のprops
 const mapStageToProps = ( state, ownProps ) => {
     console.log( state )
-    const event = state.count[ ownProps.match.params.id ]
-    return { initialValues: event, event }
+    const event = state.count[ ownProps.match.params.id ] //formの初期化処理イベントを丸っと返す
+    return { initialValues: event, event } // initialValuesはhttps://qiita.com/sand/items/24bf124106761b2a8aceをみる 
 }
 
 const mapDispatchToProps = ( { deleteEvent, getEvent } )
