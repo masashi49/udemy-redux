@@ -69,7 +69,8 @@ const validate = values => {
 
 //ownPropsは現在のprops
 const mapStageToProps = ( state, ownProps ) => {
-    console.log( state )
+    // state.countは {10: {id: 10, title: "Let's have an event 10!", body: "This is the body for event 10."}}
+    // ↑はreducerで初期化された時に入ってくる値となる
     const event = state.count[ ownProps.match.params.id ] //formの初期化処理イベントを丸っと返す
     return { initialValues: event, event } // initialValuesはhttps://qiita.com/sand/items/24bf124106761b2a8aceをみる 
 }
