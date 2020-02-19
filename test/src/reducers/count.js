@@ -21,7 +21,7 @@ export default (events = initialState, action) => {
         case READ_EVENT:
             const data = action.response.data
             // {id: 1, title: "Let's have an event 1!", body: "This is the body for event 1."}
-            return { ...events, [data.id]: data }
+            return { ...events, [data.id]: data } // スプレット演算子で現在のevents(initialState)に差分を追加する
         case READ_EVENTS:
             return _.mapKeys(action.response.data, 'id')
         case DELETE_EVENTS:
