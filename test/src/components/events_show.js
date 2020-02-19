@@ -29,7 +29,7 @@ class EventsShow extends Component {
     }
 
     async onSubmit ( values ) {
-        await this.props.postEvent( values )
+        await this.props.putEvent( values )
         this.props.history.push( '/' ) // historyに現在のページのURLを追加しつつページ繊維
     }
 
@@ -42,7 +42,7 @@ class EventsShow extends Component {
     render () {
         const { handleSubmit, pristine, submitting } = this.props
 
-        // handoleSubmitはreduxForm を component と紐付けることで実装されるハンドラ 
+        // handoleSubmitはreduxForm を component と紐付けることで実装されるハンドラ
         return (
             <form onSubmit={ handleSubmit( this.onSubmit ) }>
                 <div>
@@ -72,10 +72,10 @@ const mapStageToProps = ( state, ownProps ) => {
     // state.countは {10: {id: 10, title: "Let's have an event 10!", body: "This is the body for event 10."}}
     // ↑はreducerで初期化された時に入ってくる値となる
     const event = state.count[ ownProps.match.params.id ] //formの初期化処理イベントを丸っと返す
-    return { initialValues: event, event } // initialValuesはhttps://qiita.com/sand/items/24bf124106761b2a8aceをみる 
+    return { initialValues: event, event } // initialValuesはhttps://qiita.com/sand/items/24bf124106761b2a8aceをみる
 }
 
-const mapDispatchToProps = ( { deleteEvent, getEvent } )
+const mapDispatchToProps = ({ deleteEvent, getEvent, putEvent } )
 
 export default connect( mapStageToProps, mapDispatchToProps )(
     // enableReinitialize: true formの値が変わったらレンダリングする
