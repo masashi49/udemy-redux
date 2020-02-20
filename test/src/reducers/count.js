@@ -1,6 +1,6 @@
 import _ from 'lodash' // 配列に対して便利な機能を持つ 配列を任意のkeyとvalueのobjに
 
-import { INCREMENT, DECREMENT, READ_EVENTS, READ_EVENT, DELETE_EVENTS, UPDATE_EVENT } from '../actions'
+import { INCREMENT, DECREMENT, READ_EVENTS, READ_EVENT, DELETE_EVENTS, UPDATE_EVENT, CREAT_EVENTS } from '../actions'
 
 //初期状態のstateを設定
 const initialState = {
@@ -19,6 +19,7 @@ export default (events = initialState, action) => {
             return { value: events.value - 1 }
         case UPDATE_EVENT:
         case READ_EVENT:
+        case CREAT_EVENTS:
             const data = action.response.data
             // {id: 1, title: "Let's have an event 1!", body: "This is the body for event 1."}
             return { ...events, [data.id]: data } // スプレット演算子で現在のevents(initialState)に差分を追加する
